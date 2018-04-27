@@ -33,9 +33,15 @@ public class OwnerRepositoryInMemoryImpl implements OwnerRepository {
 		owner3.setFirstName("Rahman");
 		owner3.setLastName("Beşir");
 		
+		Owner owner4 = new Owner();
+		owner4.setId(4L);
+		owner4.setFirstName("Göktuğ");
+		owner4.setLastName("Salam");
+		
 		ownersMap.put(owner1.getId(), owner1);
 		ownersMap.put(owner2.getId(), owner2);
 		ownersMap.put(owner3.getId(), owner3);
+		ownersMap.put(owner4.getId(), owner4);
 	}
 	
 	@Override
