@@ -12,43 +12,45 @@ import com.erkanerturk.petclinic.model.Owner;
 @Service
 public class PetClinicServiceImpl implements PetClinicService {
 
-	private OwnerRepository ownerRepository;
-	
-	@Autowired
-	public void setOwnerRepository(OwnerRepository ownerRepository) {
-		this.ownerRepository = ownerRepository;
-	}
-	
-	@Override
-	public List<Owner> findOwners() {
-		return ownerRepository.findAll();
-	}
+    private OwnerRepository ownerRepository;
 
-	@Override
-	public List<Owner> findOwners(String lastName) {
-		return ownerRepository.findByLastName(lastName);
-	}
+    @Autowired
+    public void setOwnerRepository(OwnerRepository ownerRepository) {
+        this.ownerRepository = ownerRepository;
+    }
 
-	@Override
-	public Owner findOwner(Long id) throws OwnerNotFoundException {
-		Owner owner = ownerRepository.findById(id);
-		if (owner == null) throw new OwnerNotFoundException("Owner not found with id :" + id);
-		return owner;
-	}
+    @Override
+    public List<Owner> findOwners() {
+        return ownerRepository.findAll();
+    }
 
-	@Override
-	public void addOwner(Owner owner) {
-		ownerRepository.add(owner);
-	}
+    @Override
+    public List<Owner> findOwners(String lastName) {
+        return ownerRepository.findByLastName(lastName);
+    }
 
-	@Override
-	public void update(Owner owner) {
-		ownerRepository.update(owner);
-	}
+    @Override
+    public Owner findOwner(Long id) throws OwnerNotFoundException {
+        Owner owner = ownerRepository.findById(id);
+        if (owner == null) throw new OwnerNotFoundException("Owner not found with id :" + id);
+        return owner;
+    }
 
-	@Override
-	public void deleteOwner(Long id) {
-		ownerRepository.delete(id);
-	}
+    @Override
+    public void addOwner(Owner owner) {
+        ownerRepository.add(owner);
+    }
+
+    @Override
+    public void update(Owner owner) {
+        ownerRepository.update(owner);
+    }
+
+    @Override
+    public Owner deleteOwner(Long id) {
+        Owner owner = ownerRepository.delete(id);
+        if (owner == null) throw new OwnerNotFoundException("Owner not found with id :" + id);
+        return owner;
+    }
 
 }
