@@ -11,5 +11,5 @@ public interface PetClinicService {
 	Owner findOwner(Long id) throws OwnerNotFoundException;
 	void addOwner(Owner owner);
 	void update(Owner owner);
-	Owner deleteOwner(Long id) throws OwnerNotFoundException;
+	void deleteOwner(Long id);
 }

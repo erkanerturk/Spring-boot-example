@@ -24,14 +24,16 @@ public class PetClinicRestController {
     private PetClinicService petClinicService;
 
     @DeleteMapping(value = "/owner/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> deleteOwner(@PathVariable("id") Long id) {
         try {
-            Owner owner = petClinicService.deleteOwner(id);
-            return ResponseEntity.ok(owner);
+            petClinicService.deleteOwner(id);
+            return ResponseEntity.ok().build();
         } catch (OwnerNotFoundException ex) {
-            return ResponseEntity.notFound().build();
+            throw ex;
         } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            throw new InternalServerException(ex);
+            //  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
