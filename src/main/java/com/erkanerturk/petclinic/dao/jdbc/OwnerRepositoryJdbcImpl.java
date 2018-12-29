@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 
-@Repository("ownerRepository")
+@Repository
 public class OwnerRepositoryJdbcImpl implements OwnerRepository {
 
     @Autowired
