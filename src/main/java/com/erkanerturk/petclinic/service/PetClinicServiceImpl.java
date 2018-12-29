@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.erkanerturk.petclinic.dao.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import com.erkanerturk.petclinic.dao.OwnerRepository;
@@ -32,6 +33,7 @@ public class PetClinicServiceImpl implements PetClinicService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    @Secured(value = {"ROLE_USER", "ROLE_EDITOR"})
     public List<Owner> findOwners() {
         return ownerRepository.findAll();
     }
