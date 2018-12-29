@@ -3,6 +3,9 @@ package com.erkanerturk.petclinic.service;
 import java.util.List;
 
 import com.erkanerturk.petclinic.dao.PetRepository;
+import com.erkanerturk.petclinic.dao.jpa.VetRepository;
+import com.erkanerturk.petclinic.exception.VetNotFoundException;
+import com.erkanerturk.petclinic.model.Vet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -26,6 +29,8 @@ public class PetClinicServiceImpl implements PetClinicService {
     @Autowired
     private JavaMailSender mailSender;
 
+    private VetRepository vetRepository;
+
     @Autowired
     public void setOwnerRepository(OwnerRepository ownerRepository) {
         this.ownerRepository = ownerRepository;
@@ -34,6 +39,11 @@ public class PetClinicServiceImpl implements PetClinicService {
     @Autowired
     public void setPetRepository(PetRepository petRepository) {
         this.petRepository = petRepository;
+    }
+
+    @Autowired
+    public void setVetRepository(VetRepository vetRepository) {
+        this.vetRepository = vetRepository;
     }
 
     @Override
@@ -81,4 +91,13 @@ public class PetClinicServiceImpl implements PetClinicService {
         ownerRepository.delete(id);
     }
 
+    @Override
+    public List<Vet> findVets() {
+        return vetRepository.findAll();
+    }
+
+    @Override
+    public Vet findVet(Long id) throws VetNotFoundException {
+        return vetRepository.findById(id).orElseThrow(() -> new VetNotFoundException("Vet not found by id :" + id));
+    }
 }
